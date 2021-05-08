@@ -103,3 +103,5 @@ System.out.println(g1==g2);
         g.setFormat("%s,안녕하세요!");
         return g;
     }
+---
+##
