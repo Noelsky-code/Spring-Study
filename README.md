@@ -1,7 +1,8 @@
 
+
 # 스프링 5 프로그래밍 입문 최범균 책으로 공부
 
-==================
+
 ## <strong>Maven VS Gradle
 
 책을 펴자마자 Maven과 Gradle에 대한 얘기가 나왔다.  
@@ -104,4 +105,34 @@ System.out.println(g1==g2);
         return g;
     }
 ---
-##
+## 의존 
+---
+* 의존은 변경에 의해 영향을 받는 관계 .
+* 만약 한 클래스가 다른 클래스의 메서드를 실행할 때 이를 '의존' 한다고 함
+* 의존 하는 대상의 객체를 get하는 방법에는 해당 클래스에서 직접 그 객체를 생성하는 법이 있음  
+ 하지만 이 방법은 유지보수 측면에서 문제가 존재.  
+ * 의존 객체를 구하는 다른 방법엔 DI와 서비스 로케이터가 있음 
+ * 스프링에서는 DI를 이용. 
+
+ ---
+ ## DI (Dependency Injection) , 의존 주입
+ ---
+ 의존하는 객체를 직접 생성하는 대신 의존 객체를 전달받는 방식.
+
+    public MemberRegisterService(MemberDao memberDao){
+        this.memberDao = memberDao;
+    }
+위 코드처럼 객체를 직접 생성하는게 아닌 생성자를 통해 의존 객체를 주입받음.   
+위 코드는 DI 패턴을 따름.  
+
+    MemberDao dao = new MemberDao();
+    MemberRegisterService svc = new MemberRegisterService(dao);
+
+이렇게 객체 생성할 때 객체를 주입 시켜줌.   
+굳이 이렇게 DI를 하는 이유는 어려운 개념이라고 함 ... 나중에 찾아보자  
+일단은 주된 이유중 하나는 변경의 유연함떄문 . 
+
+---
+### 변경의 유연함
+
+
