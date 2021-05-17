@@ -19,7 +19,7 @@
 프로젝트가 일관된 디렉토리 구조를 가지게 해줌
 
 ------------
-#### <strong>차이점
+### <strong>차이점
 
 * xml을 편집해야하는 Maven보다 Gradle이 훨씬 간결한 코드사용가능
 
@@ -29,7 +29,7 @@
 * Gradle은 concurrent에 안전한 캐시를 허용
 
 ----
-#### <strong>결론
+### <strong>결론
 속도, 안정성, 코드 간결등등 Gradle을 사용하는게 맞는거 같다.  
 게다가 현재 Gradle을 주로 사용하는 추세라고 하니 굳이 Maven을 사용할 필요는 없는 것 같다.  
 그래도 기초적인 작성법은 배워놓자.  
@@ -46,14 +46,28 @@ org.springframework: ~~~ dependency 때문에 제대로 안돌아감 -> 책에�
 -> 이제 compile말고 implementation 써야한다고 함 ->   썻는데도 오류뜸 -> 하아 ..
 
 ----
-#### <strong>결론
+### <strong>결론
 
 구글링하다 알게된건데 스프링부트는 자동으로 dependency 관리를 해준다.. 자세한 내용은 다음에 알아보자..  
 어쨋든 Vscode 스프링 부트엔 좋은 툴이 있었고 그걸 사용해봤다..   
 
 * SPRING BOOT DASHBOARD ... 뭔진 모르겠지만 새로고침 하면 자동으로 build 해주고 자동으로 dependency가 추가되었다.    
-      
-    
+---      
+# <strong>vscode 에서 추가 프로젝트 생성할 떄  
+
+고생하고 알게 된 사실 .. 순서대로 
+* F1 
+* gradle 검색
+* 현재 폴더에 new gradle 프로젝트 
+* 엔터 계속 .. (나중에 폴더명 등등 고치면 됨) 
+* build.gradle 수정 후 ctrl + s  
+* 업데이트 할거냐고 물어봄 -> yes 
+* 하면 자동으로 모든 과정 build 해줌 ...  
+
+이 방법을 고생하면서 알게 됐음 .. 무려 시작한지 2주정도 지나고 나서 .. (그 동안은 어쩌다 성공함)   
+이런건 왜 구글링하면 안뜨는거지 ..  
+보람차서 제목 크게 설정해야지 ~  
+
 
 ----
 ## <strong>객체 컨테이너
@@ -105,8 +119,8 @@ System.out.println(g1==g2);
         return g;
     }
 ---
-## 의존 
----
+## <strong>의존 
+
 * 의존은 변경에 의해 영향을 받는 관계 .
 * 만약 한 클래스가 다른 클래스의 메서드를 실행할 때 이를 '의존' 한다고 함
 * 의존 하는 대상의 객체를 get하는 방법에는 해당 클래스에서 직접 그 객체를 생성하는 법이 있음  
@@ -115,9 +129,9 @@ System.out.println(g1==g2);
  * 스프링에서는 DI를 이용. 
 
  ---
- ## DI (Dependency Injection) , 의존 주입
- ---
- 의존하는 객체를 직접 생성하는 대신 의존 객체를 전달받는 방식.
+## <strong>DI (Dependency Injection) , 의존 주입  
+
+의존하는 객체를 직접 생성하는 대신 의존 객체를 전달받는 방식.
 
     public MemberRegisterService(MemberDao memberDao){
         this.memberDao = memberDao;
@@ -134,5 +148,19 @@ System.out.println(g1==g2);
 
 ---
 ### 변경의 유연함
+의존 객체를 직접 생성하는 방식은 만약 해당 의존 객체를 사용하는 class가 여러개일 경우 불편함이 발생함  
+만약 의존 객체가 dao 이고 dao 클래스를 extends 하는 클래스가 ex_dao일 경우 ex_dao를 사용하고 싶을 떄 모든 class의 객체 생성 파트에 수정을 해줘야함 
+     
+     <Class 1>
+     private dao = new dao  ->  private dao = new ex_dao 
+     <Class 2>
+     private dao = new dao  ->  private dao = new ex_dao 
+하지만 DI를 사용할 경우 
+    
+    new dao = new ex_dao
+    class1.make(dao);
+    class1.make(dao); 
+너무 대충 작성했지만 어쩃든 그저 생성자를 통해 객체를 생성하고 주입 하기만 하면 해당 의존객체를 사용하는 모든 class 코드를 수정할 필요가 사라지는게 핵심. 
 
-
+---
+## 예제 프로젝트 
