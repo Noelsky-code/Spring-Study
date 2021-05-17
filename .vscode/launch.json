@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Main<sp5-chap03>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "spring.Main",
+            "projectName": "sp5-chap03",
+            "args": ""
+        }
+    ]
+}
