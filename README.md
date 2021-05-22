@@ -164,3 +164,17 @@ System.out.println(g1==g2);
 
 ---
 ## 예제 프로젝트 
+* 회원 데이터 관련 클래스 - Member , WrongIdPasswordException, MemberDao
+
+* 회원 가입 처리 관련 클래스 - DuplicateMemberException , RegisterRequest , MemberRegisterService 
+
+* 암호 변경 관련 클래스 - MemberNotFoundException , ChangePasswordService
+---
+## 객체 조립기 
+DI를 사용하면 객체 생성에 사용할 클래스를 변경하기 위해 객체를 주입하는 코드 한 곳만 변경하면 된다.  
+이 때 객체를 생성하는 코드는 쉽게 메인 메서드에서 생성하는 방법이 있을 수 있다.  
+더 나은 방법은 객체를 생성하고 의존 객체를 주입해주는 클래스를 따로 작성하는 방법.   
+의존 객체를 주입하는 것을 서로 다른 두 객체를 조립한다고 생각할 수 있어서 이 클래스를 조립기라고 표현함.  
+* 조립기는 객체를 생성하고 의존 객체를 주입하는 기능 제공 
+* 특정 객체가 필요한 곳에 get 메서드로 제공해줌.
+* 만약 의존 객체를 변경하려면 조립기의 코드만 변경하면 됨
