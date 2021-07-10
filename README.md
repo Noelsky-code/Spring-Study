@@ -1,7 +1,7 @@
 
 
 # 스프링 5 프로그래밍 입문 최범균 책으로 공부
-
+책 내용 정리 , 예제 프로그램 작성해보기 
 
 ## <strong>Maven VS Gradle
 
@@ -54,7 +54,6 @@ org.springframework: ~~~ dependency 때문에 제대로 안돌아감 -> 책에�
 * SPRING BOOT DASHBOARD ... 뭔진 모르겠지만 새로고침 하면 자동으로 build 해주고 자동으로 dependency가 추가되었다.    
 ---      
 # <strong>vscode 에서 추가 프로젝트 생성할 떄  
-
 고생하고 알게 된 사실 .. 순서대로 
 * F1 
 * gradle 검색
@@ -105,7 +104,7 @@ Greeter g2 = ctx.getBean("greeter",Greeter.class);
 System.out.println(g1==g2); 
 ~~~
 아래 처럼 작성하면 "greeter"에 대한 객체 하나, "greeter1"에 대한 객체 하나를 얻을 수 있다.
-    
+```java    
     @Bean
     public Greeter greeter(){
         Greeter g= new Greeter();
@@ -118,6 +117,8 @@ System.out.println(g1==g2);
         g.setFormat("%s,안녕하세요!");
         return g;
     }
+```
+
 ---
 ## <strong>의존 
 
@@ -132,38 +133,42 @@ System.out.println(g1==g2);
 ## <strong>DI (Dependency Injection) , 의존 주입  
 
 의존하는 객체를 직접 생성하는 대신 의존 객체를 전달받는 방식.
-
+```java
     public MemberRegisterService(MemberDao memberDao){
         this.memberDao = memberDao;
     }
+```
 위 코드처럼 객체를 직접 생성하는게 아닌 생성자를 통해 의존 객체를 주입받음.   
 위 코드는 DI 패턴을 따름.  
-
+```java
     MemberDao dao = new MemberDao();
     MemberRegisterService svc = new MemberRegisterService(dao);
-
+```
 이렇게 객체 생성할 때 객체를 주입 시켜줌.   
 굳이 이렇게 DI를 하는 이유는 어려운 개념이라고 함 ... 나중에 찾아보자  
 일단은 주된 이유중 하나는 변경의 유연함떄문 . 
 
 ---
-### 변경의 유연함
+### <string> 변경의 유연함
 의존 객체를 직접 생성하는 방식은 만약 해당 의존 객체를 사용하는 class가 여러개일 경우 불편함이 발생함  
 만약 의존 객체가 dao 이고 dao 클래스를 extends 하는 클래스가 ex_dao일 경우 ex_dao를 사용하고 싶을 떄 모든 class의 객체 생성 파트에 수정을 해줘야함 
-     
+```java 
      <Class 1>
      private dao = new dao  ->  private dao = new ex_dao 
      <Class 2>
      private dao = new dao  ->  private dao = new ex_dao 
-하지만 DI를 사용할 경우 
     
+    //하지만 DI를 사용할 경우 
     new dao = new ex_dao
     class1.make(dao);
     class1.make(dao); 
+```
 너무 대충 작성했지만 어쩃든 그저 생성자를 통해 객체를 생성하고 주입 하기만 하면 해당 의존객체를 사용하는 모든 class 코드를 수정할 필요가 사라지는게 핵심. 
 
 ---
-## 예제 프로젝트 
+## <strong> 예제 프로젝트 
+예제 프로젝트는 DI를 이용하여 <Email, password> 를 등록, 등록된 비밀번호를 변경하는 프로젝트. 
+
 * 회원 데이터 관련 클래스 - Member , WrongIdPasswordException, MemberDao
 
 * 회원 가입 처리 관련 클래스 - DuplicateMemberException , RegisterRequest , MemberRegisterService 
@@ -174,7 +179,7 @@ System.out.println(g1==g2);
 * 
 * 객체 조립기 - Assembler
 ---
-## 객체 조립기 
+## <strong>객체 조립기 
 DI를 사용하면 객체 생성에 사용할 클래스를 변경하기 위해 객체를 주입하는 코드 한 곳만 변경하면 된다.  
 이 때 객체를 생성하는 코드는 쉽게 메인 메서드에서 생성하는 방법이 있을 수 있다.  
 더 나은 방법은 객체를 생성하고 의존 객체를 주입해주는 클래스를 따로 작성하는 방법.   
@@ -186,4 +191,43 @@ DI를 사용하면 객체 생성에 사용할 클래스를 변경하기 위해 �
 예제 프로젝트에서는 Assembler.java 가 객체 조립기로서 MemberDao 클래스를 ChangePasswordService에 의존 주입, MemberRegisterService에 의존주입한 후 (조립) get 메서드를 통해 각각 객체를 반환해줌. 
 
 ---
-## 스프링과 DI 
+## <strong>스프링과 DI 
+스프링은 DI를 지원하는 조립기 즉, 필요한 객체를 생성하고 생성한 객체에 의존을 주입해줌,  객체를 제공하는 기능을 정의해놓은 범용 조립기임.  
+=> 스프링의 객체 조립은 어떤 객체를 생성하고 어떻게 주입할지를 정의한 설정 정보를 미리 작성해야함.   
+* @Configuration 애노테이션은 스프링 설정 클래스를 의미함 -> 이걸 붙여야지 스프링 설정 클래스로 사용가능
+* @Bean 애노테이션은 해당 메서드가 생성한 객체를 스프링 빈이라고 설정 -> 각각 메서드가 빈 객체를 생성 -> 메서드가 생성한 빈 객체가 메서드 이름으로 스프링에 등록됨 
+* @Configuration 애노테이션을 붙인 설정 클래스 안에 @Bean 애노테이션을 붙인 메서드들을 작성하면 됨   
+  
+
+    ```java
+    @Configuration
+        public class AppCtx{
+    
+        @Bean
+        public MemberDao memberDao(){
+            return new MemberDao();
+        }
+        
+        @Bean 
+        public MemberReigsterService memberRegSvc(){
+            return new MemberReigsterService(memberDao());
+        }
+        
+        @Bean
+        public ChangePasswordService changerPwdSvc(){
+            ChangePasswordService pwdSvc = new ChangePasswordService();
+            pwdSvc.setMemberDao(memberDao());
+            return pwdSvc;
+        }
+    }
+
+=> 이렇게 설정 클래스를 작성했다면 해당 설정 클래스를 이용하기 위해 컨테이너를 생성해야함.  
+```java
+    //AppCtx.java 가 설정 클래스 라면 
+    ApplicationContext ctx = new AnnotationConfigApplicationContext(AppCtx.class);
+    
+    //컨테이너에서 이름이 memberRegSvc인 빈 객체 구함
+    MemberRegisterService regSvc = ctx.getBean("memberRegSvc",MemberRegisterService.class);
+
+    //앞서 설정 클래스에서 memberRegSvc 메서드가 MemberDao 객체를 생성자를 통해 MemberRegisterService에 주입했었음. 따라서 regSvc 객체는 내부에서 memberDao 객체를 사용함.  
+```
