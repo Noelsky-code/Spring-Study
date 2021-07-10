@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "com.chap.Main",
+            "projectName": "chap"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ChapApplication<chap>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.chap.ChapApplication",
+            "projectName": "chap",
+            "args": ""
+        }
+    ]
+}
