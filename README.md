@@ -170,7 +170,9 @@ System.out.println(g1==g2);
 
 * 암호 변경 관련 클래스 - MemberNotFoundException , ChangePasswordService
 
-* main 클래스 
+* main 클래스 - MainForAssembler
+* 
+* 객체 조립기 - Assembler
 ---
 ## 객체 조립기 
 DI를 사용하면 객체 생성에 사용할 클래스를 변경하기 위해 객체를 주입하는 코드 한 곳만 변경하면 된다.  
@@ -181,6 +183,7 @@ DI를 사용하면 객체 생성에 사용할 클래스를 변경하기 위해 �
 * 특정 객체가 필요한 곳에 get 메서드로 제공해줌.
 * 만약 의존 객체를 변경하려면 조립기의 코드만 변경하면 됨
 
----
+예제 프로젝트에서는 Assembler.java 가 객체 조립기로서 MemberDao 클래스를 ChangePasswordService에 의존 주입, MemberRegisterService에 의존주입한 후 (조립) get 메서드를 통해 각각 객체를 반환해줌. 
 
-## 
+---
+## 스프링과 DI 

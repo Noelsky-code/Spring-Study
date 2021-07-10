@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch MainForAssembler",
+            "request": "launch",
+            "mainClass": "main.MainForAssembler",
+            "projectName": "sp5-chap03"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-Main<sp5-chap03>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
