@@ -231,3 +231,6 @@ DI를 사용하면 객체 생성에 사용할 클래스를 변경하기 위해 �
 
     //앞서 설정 클래스에서 memberRegSvc 메서드가 MemberDao 객체를 생성자를 통해 MemberRegisterService에 주입했었음. 따라서 regSvc 객체는 내부에서 memberDao 객체를 사용함.  
 ```
+* 에러 : src/main 폴더에 config 폴더를 넣었을 때는 classpath 인식을 하지 못해 이 package를 import 하는데에 실패함. 이유는 3시간동안 찾아보고 해봤지만 모르겠음. 해결하지 못함 
+* 대안 : 다른 소스코드 폴더들이 있는 src/main/java 에 config 폴더를 생성했더니 인식함.  
+  

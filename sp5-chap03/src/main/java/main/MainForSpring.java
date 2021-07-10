@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import assembler.Assembler;
-import config1.AppCtx;
+import config.AppCtx;
 import spring.ChangePasswordService;
 import spring.DuplicateMemberException;
 import spring.MemberNotFoundException;
