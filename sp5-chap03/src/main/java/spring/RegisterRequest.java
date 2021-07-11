@@ -4,7 +4,7 @@ public class RegisterRequest {
     
     private String email;
     private String password;
-    private String confirmpassword;
+    private String confirmPassword;
     private String name;
 
     public String getEmail(){
@@ -24,11 +24,11 @@ public class RegisterRequest {
     }
 
     public String getConfirmPassword(){
-        return confirmpassword;
+        return confirmPassword;
     }
 
     public void setConfirmPassword(String confirmPassword){
-        this.confirmpassword= confirmPassword;
+        this.confirmPassword= confirmPassword;
     }
 
     public String getName(){
@@ -39,6 +39,6 @@ public class RegisterRequest {
         this.name = name;
     }
     public boolean isPasswordEqualToConfirmPassword(){
-        return password.equals(confirmpassword);
+        return password.equals(confirmPassword);
     }
 }

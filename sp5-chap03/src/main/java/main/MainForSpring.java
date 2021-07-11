@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import assembler.Assembler;
 import config.AppCtx;
 import spring.ChangePasswordService;
 import spring.DuplicateMemberException;
@@ -16,6 +15,7 @@ import spring.MemberReigsterService;
 import spring.RegisterRequest;
 import spring.WrongIdPasswordException;
 import spring.MemberListPrinter;
+import spring.MemberInfoPrinter;
 
 public class MainForSpring{
     private static ApplicationContext ctx = null;
@@ -42,11 +42,14 @@ public class MainForSpring{
                 processListCommand();
                 continue;
             }
+            else if(command.startsWith("info ")){
+                processInfoCommand(command.split(" "));
+                continue;
+            }
             printHelp();
         }
         
     }
-    private static Assembler assembler = new Assembler();
     
     private static void processNewCommand(String[] arg){
         if(arg.length != 5){
@@ -94,6 +97,14 @@ public class MainForSpring{
     private static void processListCommand(){
         MemberListPrinter listPrinter = ctx.getBean("listPrinter",MemberListPrinter.class);
         listPrinter.printAll();
+    }
+    private static void processInfoCommand(String[] arg){
+        if(arg.length!=2){
+            printHelp();
+            return;
+        }
+        MemberInfoPrinter infoPrinter = ctx.getBean("infoPrinter",MemberInfoPrinter.class);
+        infoPrinter.printMemberInfo(arg[1]);
     }
     private static void printHelp(){
         System.out.println();
