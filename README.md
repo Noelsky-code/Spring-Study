@@ -196,7 +196,8 @@ DI를 사용하면 객체 생성에 사용할 클래스를 변경하기 위해 �
 * @Configuration 애노테이션은 스프링 설정 클래스를 의미함 -> 이걸 붙여야지 스프링 설정 클래스로 사용가능
 * @Bean 애노테이션은 해당 메서드가 생성한 객체를 스프링 빈이라고 설정 -> 각각 메서드가 빈 객체를 생성 -> 메서드가 생성한 빈 객체가 메서드 이름으로 스프링에 등록됨 
 * @Configuration 애노테이션을 붙인 설정 클래스 안에 @Bean 애노테이션을 붙인 메서드들을 작성하면 됨   
-  
+--- 
+### <strong> 생성자를 통한 DI  
 
     ```java
     @Configuration
@@ -234,5 +235,26 @@ DI를 사용하면 객체 생성에 사용할 클래스를 변경하기 위해 �
 * 에러 : src/main 폴더에 config 폴더 만들어서 import 하면 인식을 못함//이유는 모르겠음
 * -> 책 내용과 다르게 src/main/java 폴더에 config 폴더 만들었음. 
 
+이렇게 생성자를 통해 의존 객체를 전달하는 방식은 생성자에 전달할 의존 객체를 2개 이상이어도 같은 방식으로 사용 가능함. 
 
+``` java
+    //AppCtx 파일 
+    @Bean
+    public MemberDao memberDao(){
+        return new MemberDao();
+    }
+    @Bean 
+    public MemberPrinter memberPrinter(){
+        return new MemberPrinter();
+    }
+    @Bean
+    public MemberListPrinter listPrinter(){
+        return new MemberListPrinter(memberDao(), memberPrinter());
+    }
 
+    //main
+    MemberListPrinter listPrinter = ctx.getBean("listPrinter",MemberListPrinter.class);
+```
+이렇게 2개의 객체를 생성자를 통해 주입하는것이 가능함. 
+
+### <strong> 세터 메서드 방식을 통한 DI

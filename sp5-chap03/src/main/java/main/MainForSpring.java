@@ -15,6 +15,7 @@ import spring.MemberNotFoundException;
 import spring.MemberReigsterService;
 import spring.RegisterRequest;
 import spring.WrongIdPasswordException;
+import spring.MemberListPrinter;
 
 public class MainForSpring{
     private static ApplicationContext ctx = null;
@@ -35,6 +36,10 @@ public class MainForSpring{
             }
             else if(command.startsWith("change ")){
                 processChangeCommand(command.split(" "));
+                continue;
+            }
+            else if(command.startsWith("list")){
+                processListCommand();
                 continue;
             }
             printHelp();
@@ -85,6 +90,10 @@ public class MainForSpring{
         catch(WrongIdPasswordException e){
             System.out.println("이메일과 암호가 일치하지 않습니다.\n");
         }
+    }
+    private static void processListCommand(){
+        MemberListPrinter listPrinter = ctx.getBean("listPrinter",MemberListPrinter.class);
+        listPrinter.printAll();
     }
     private static void printHelp(){
         System.out.println();
