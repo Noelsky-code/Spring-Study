@@ -48,7 +48,7 @@ public class MainForSpring{
             printHelp();
             return;
         }
-        MemberReigsterService regSvc = assembler.getMemberReigsterService();
+        MemberReigsterService regSvc = ctx.getBean("memberRegSvc", MemberReigsterService.class);//빈 객체 획득 
         RegisterRequest req = new RegisterRequest();
         req.setEmail(arg[1]);
         req.setName(arg[2]);
@@ -73,7 +73,7 @@ public class MainForSpring{
             return;
         }
 
-        ChangePasswordService changePwdSvc = assembler.getChangePasswordService();
+        ChangePasswordService changePwdSvc = ctx.getBean("changePwdSvc",ChangePasswordService.class);//빈 객체 획득
         
         try{
             changePwdSvc.changePassword(arg[1], arg[2], arg[3]);

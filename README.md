@@ -53,7 +53,7 @@ org.springframework: ~~~ dependency 때문에 제대로 안돌아감 -> 책에�
 
 * SPRING BOOT DASHBOARD ... 뭔진 모르겠지만 새로고침 하면 자동으로 build 해주고 자동으로 dependency가 추가되었다.    
 ---      
-# <strong>vscode 에서 추가 프로젝트 생성할 떄  
+## <strong>vscode 에서 추가 프로젝트 생성할 떄  
 고생하고 알게 된 사실 .. 순서대로 
 * F1 
 * gradle 검색
@@ -66,7 +66,6 @@ org.springframework: ~~~ dependency 때문에 제대로 안돌아감 -> 책에�
 이 방법을 고생하면서 알게 됐음 .. 무려 시작한지 2주정도 지나고 나서 .. (그 동안은 어쩌다 성공함)   
 이런건 왜 구글링하면 안뜨는거지 ..  
 보람차서 제목 크게 설정해야지 ~  
-
 
 ----
 ## <strong>객체 컨테이너
@@ -223,7 +222,8 @@ DI를 사용하면 객체 생성에 사용할 클래스를 변경하기 위해 �
 
 => 이렇게 설정 클래스를 작성했다면 해당 설정 클래스를 이용하기 위해 컨테이너를 생성해야함.  
 ```java
-    //AppCtx.java 가 설정 클래스 라면 
+    //AppCtx.java 가 설정 클래스 라면
+    //AppCtx로부터 생성할 객체와 의존 주입 대상에 대한 설정을 가져와 컨테이너를 생성함  
     ApplicationContext ctx = new AnnotationConfigApplicationContext(AppCtx.class);
     
     //컨테이너에서 이름이 memberRegSvc인 빈 객체 구함
@@ -231,6 +231,8 @@ DI를 사용하면 객체 생성에 사용할 클래스를 변경하기 위해 �
 
     //앞서 설정 클래스에서 memberRegSvc 메서드가 MemberDao 객체를 생성자를 통해 MemberRegisterService에 주입했었음. 따라서 regSvc 객체는 내부에서 memberDao 객체를 사용함.  
 ```
-* 에러 : src/main 폴더에 config 폴더를 넣었을 때는 classpath 인식을 하지 못해 이 package를 import 하는데에 실패함. 이유는 3시간동안 찾아보고 해봤지만 모르겠음. 해결하지 못함 
-* 대안 : 다른 소스코드 폴더들이 있는 src/main/java 에 config 폴더를 생성했더니 인식함.  
-  
+* 에러 : src/main 폴더에 config 폴더 만들어서 import 하면 인식을 못함//이유는 모르겠음
+* -> 책 내용과 다르게 src/main/java 폴더에 config 폴더 만들었음. 
+
+
+

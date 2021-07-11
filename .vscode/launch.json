@@ -22,10 +22,11 @@
             "name": "Spring Boot-MainForSpring<sp5-chap03>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
+            "console": "integratedTerminal",
             "mainClass": "main.MainForSpring",
             "projectName": "sp5-chap03",
             "args": ""
+            
         }
     ]
 }
