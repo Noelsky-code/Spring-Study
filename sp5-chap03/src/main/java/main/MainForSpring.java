@@ -7,7 +7,8 @@ import java.io.InputStreamReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import config.AppCtx;
+import config.AppConf1;
+import config.AppConf2;
 import spring.ChangePasswordService;
 import spring.DuplicateMemberException;
 import spring.MemberNotFoundException;
@@ -16,11 +17,12 @@ import spring.RegisterRequest;
 import spring.WrongIdPasswordException;
 import spring.MemberListPrinter;
 import spring.MemberInfoPrinter;
+import spring.VersionPrinter;
 
 public class MainForSpring{
     private static ApplicationContext ctx = null;
     public static void main(String[] args)throws IOException{
-        ctx = new AnnotationConfigApplicationContext(AppCtx.class);
+        ctx = new AnnotationConfigApplicationContext(AppConf1.class,AppConf2.class);
         
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while(true){
@@ -44,6 +46,10 @@ public class MainForSpring{
             }
             else if(command.startsWith("info ")){
                 processInfoCommand(command.split(" "));
+                continue;
+            }
+            else if(command.equals("version")){
+                processVersionCommand();
                 continue;
             }
             printHelp();
@@ -105,6 +111,10 @@ public class MainForSpring{
         }
         MemberInfoPrinter infoPrinter = ctx.getBean("infoPrinter",MemberInfoPrinter.class);
         infoPrinter.printMemberInfo(arg[1]);
+    }
+    private static void processVersionCommand(){
+        VersionPrinter versionPrinter = ctx.getBean("VersionPrinter",VersionPrinter.class);
+        versionPrinter.print();
     }
     private static void printHelp(){
         System.out.println();
